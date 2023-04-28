@@ -26,7 +26,7 @@ You will also need to provide rtsp links for the cameras. In the file **camera_u
 **To quit the the video streaming press 'q'**
 
 To display the raw video stream from both cameras in real-time, run the following command:
-`python raw_video_stream.py'
+`python raw_video_stream.py`
 
 Next I have implemented the object detection model on those captured frames. While working on this task I followed this [codebase](https://github.com/ibaiGorordo/ONNX-YOLOv8-Object-Detection). 
 To display the video stream with bounding boxes around the detected objects, run the following command:
