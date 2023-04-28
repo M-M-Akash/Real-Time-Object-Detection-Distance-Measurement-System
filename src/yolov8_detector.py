@@ -39,15 +39,19 @@ async def draw_objects_and_crop(save_path, img):
     """
     
     boxes, scores, class_ids = yolov8_detector(img)
+    # the await keyword is used to wait for the function to complete 
+    # and allow other codes to run in parallel
     combined_img = await asyncio.to_thread(yolov8_detector.draw_detections, img)
+    # to_thread() allows the function to run in separate thread
+    # thus allows other code to run parallel don't block other executions
     labels, objects = await asyncio.to_thread(yolov8_detector.crop_objects, img)
-        # the await keyword is used to wait for the function to complete 
-        # and allow other codes to run in parallel 
-    await save_objects(save_path, labels, objects)
+  
+    asyncio.create_task(save_objects(save_path, labels, objects))
+    # await save_objects(save_path, labels, objects)
     return combined_img
 
 async def save_objects(save_path, labels, objects):
-    """_This function will save the the detected objects cropped images 
+    """_This function will save the the detected objects cropped images
     on the providing directory_
 
     Args:
@@ -59,10 +63,10 @@ async def save_objects(save_path, labels, objects):
     for label, object in zip(labels, objects):
 
         now = datetime.now()
-        current_time = now.strftime("_%d_%m_%H_%M_")
+        current_time = now.strftime("_%d_%m_%H_%M_%S")
         # filename contains the detected object name and current timestamp
         filename = '%s.png' %(label+current_time)
-        await asyncio.to_thread(cv2.imwrite,os.path.join(save_path,filename), object)
+        cv2.imwrite(os.path.join(save_path,filename), object)
         
         
 def draw_objects_and_crop_async(save_path, img):
