@@ -1,9 +1,20 @@
-# Real Time Object Detection System
-This system will read video streams in real-time from multiple camera sources, analyze video frames to detect objects and detected objects will be saved in folders.
-For objection detection algorithm pretrained yolov8 model is used here. The model file was exported in ONNX format because then we can then leverage the benefits of using ONNX runtime. 
+# Real Time Object Detection System with Multiple Cameras
+This project aims to build a real-time object detection system that can capture video streams from multiple cameras using RTSP protocol, analyze the video frames to detect objects, and save detected object images in a local storage directory.
+
+For object detection algorithm, I have used the pre-trained YOLOv8 model in this project. The model file was exported in ONNX format because we can then leverage the benefits of using ONNX runtime. ONNX runtime optimizes and accelerates machine learning inferencing. 
 ONNX runtime optimizes and accelerates machine learning inferencing.
  
-While running the system can handle if any camera goes offline unexpectedly. The whole system doesn't crash, only streams the camera which is online. If there is no camera active it terminates the program.
+While running the system can handle if any camera goes offline unexpectedly. At that time the whole system doesn't crash, only streams the camera which is online. If there is no active camera available it terminates the program.
+
+## Development Pipeline 
+The development pipeline consists of the following tasks:
+
+- Capturing video frames from multiple cameras using RTSP protocol in an efficient way with lower CPU usage and displaying the streaming feed.
+Implementing an object detection algorithm using a pre-trained model such as YOLO.
+
+- Integrating the object detection algorithm with the streaming script to detect objects in real-time from multiple camera sources and display the video stream with bounding boxes around the detected objects.
+
+- Adding a feature of saving detected object images in a local storage directory. Filename should contain detected object name and current timestamp. This feature is implemented using python asynchronous programming to make sure program concurrency.
 
 
 ## Installation
@@ -29,7 +40,7 @@ pip install onnxruntime
 ```
 
 **You will also need to provide rtsp links for the cameras.**
-In the file **camera_urls.json** you need to paste the rtsp links in a list.
+In the file `camera_urls.json` you need to paste the rtsp links in a list.
 ```powershell
 
 akash@akash:~$ cat camera_urls.json
