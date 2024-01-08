@@ -15,7 +15,50 @@ Implementing an object detection algorithm using a pre-trained model such as YOL
 - Integrating the object detection algorithm with the streaming script to detect objects in real-time from multiple camera sources and display the video stream with bounding boxes around the detected objects.
 
 - Adding a feature of saving detected object images in a local storage directory. Filename should contain detected object name and current timestamp. This feature is implemented using python asynchronous programming to make sure program concurrency.
+### How the distance measurement works?
+This formula is used to determine the distance 
 
+``` python
+    distancei = (2 x 3.14 x 180) ÷ (w + h x 360) x 1000 + 3
+```
+For measuring distance, at first, we have to understand how a camera sees an object. 
+<p align="center">
+<img src="http://muizzer07.pythonanywhere.com/media/files/sketch_N6c1Tb7.png">
+</p>
+
+You can relate this image to the white dog picture where the dog was localized. Again we will get four numbers in the bounding box which is (x0,y0,width,height). Here x0,y0 is used to tiled or adjust the bounding box. Width and Height these two variables are used in the formula of measuring the object and describing the detail of the detected object/objects. Width and Height will vary depending on the distance of the object from the camera.
+
+As we know, an image goes refracted when it goes through a lens because the ray of light can also enter the lens, whereas, in the case of a mirror, the light can be reflected. That's why we get an exact reflection of the image. But in the case of the lens image gets a little stretched. The following image illustrates how the image and the corresponding angles look when it enters through a lens.
+<p align="center">
+ <img src="http://muizzer07.pythonanywhere.com/media/files/lens-object-internal-scenario_cg2o8yA.png">
+</p>
+If we see there are three variables named:
+
+- do (Distance of object from the lens)
+- di (Distance of the refracted image from the convex lens)
+- f (focal length or focal distance)
+
+So the green line <b>"do"</b> represents the actual distance of the object from the convex length. And <b>"di"</b> gives a sense of what the actual image looks like. Now if we consider a triangle on the left side of the image(new refracted image) with base <b> "do" </b> and draw an opposite triangle similar to the left side one. So the new base of the opposite triangle will also be done with the same perpendicular distance. Now if we compare the two triangles from the right side, we will see <b> "do"</b> and <b> "di" </b> is parallel, and the angle creates on each side of both triangles are opposite to each other. From this, we can infer that both the triangles on the right side are also similar. Now, as they are similar, the ratio of the corresponding sides will be also similar. So do/di = A/B. Again if we compare two triangles on the right side of the image where opposite angles are equal and one angle of both the triangles are right angle (90°) (dark blue area). So A:B is both hypotenuses of a similar triangle where both triangles has a right angle. So the new equation can be defined as :
+<p align="center">
+ <img src="http://muizzer07.pythonanywhere.com/media/files/Eq1_SycSI35.gif">
+</p>
+Now, if we derive from that equation we will find:-
+<p align="center"> 
+ <img src="http://muizzer07.pythonanywhere.com/media/files/Eqn2_jRdlvju.gif">
+</p>
+And eventually will come to at 
+<p align="center">
+<img src="http://muizzer07.pythonanywhere.com/media/files/Eqn3.gif">
+</p>
+Where f is the focal length or also called the arc length by using the following formula 
+<p align="center">
+<img src="http://muizzer07.pythonanywhere.com/media/files/Eqn4.gif">
+</p>
+we will get our final result in "inches" from this formula of distance. 
+
+``` python
+    distancei = (2 x 3.14 x 180) ÷ (w + h x 360) x 1000 + 3
+```
 
 ## Installation
 To use this system you need to install some necessary libraries that are mentioned in requirements.txt.
