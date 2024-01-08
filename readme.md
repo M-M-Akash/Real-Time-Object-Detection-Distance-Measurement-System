@@ -127,3 +127,7 @@ akash@akash:~$ python detection_video_and_crop_objects.py --save_dir "path_to_sa
 
 ```
 
+## References
+M. A. Khan, P. Paul, M. Rashid, M. Hossain and M. A. R. Ahad, "An AI-Based Visual Aid With Integrated Reading Assistant for the Completely Blind," in IEEE Transactions on Human-Machine Systems.
+doi: 10.1109/THMS.2020.3027534
+- [Real-time Distance Measurement Using Single Image](http://emaraic.com/blog/distance-measurement)
