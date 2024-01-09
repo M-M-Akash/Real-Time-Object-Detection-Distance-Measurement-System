@@ -1,4 +1,4 @@
-# Real Time Object Detection System with Multiple Cameras
+# Real Time Object Detection and Distance Measurement System with Multiple Cameras
 This project aims to build a real-time object detection system that can capture video streams from multiple cameras using RTSP protocol, analyze the video frames to detect objects, and save detected object images in a local storage directory.
 
 For object detection algorithm, I have used the pre-trained YOLOv8 model in this project. The model file was exported in ONNX format because we can then leverage the benefits of using ONNX runtime. ONNX runtime optimizes and accelerates machine learning inferencing. 
